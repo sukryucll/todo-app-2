@@ -1,6 +1,6 @@
 import React from "react";
-import Content from "./components/Content";
-import Header from "./components/Header";
+import Content from "./components/Content/Content";
+import Header from "./components/Header/Header";
 import { TodoProvider } from "./contexts/TodoContext";
 
 function App() {

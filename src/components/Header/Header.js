@@ -1,5 +1,5 @@
 import React from "react";
-import NewTodoForm from "./NewTodoForm";
+import NewTodoForm from "./NewTodoForm/NewTodoForm";
 
 export default function Header() {
   return (
