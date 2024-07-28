@@ -14,8 +14,10 @@ function NewTodoForm() {
       <Formik
         initialValues={{ text: "" }}
         onSubmit={(values, { resetForm }) => {
-          addTodo(values.text);
-          resetForm();
+          if (values.text.trim()) { 
+            addTodo(values.text);
+            resetForm();
+          }
         }}
         validationSchema={validationSchema}
       >

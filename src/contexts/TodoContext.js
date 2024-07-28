@@ -1,31 +1,37 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { addTodoToStorage,getTodosFromStorage } from "../components/Storage/AddTodoToStorage";
+import { deleteTodoFromStorage } from "../components/Storage/DeleteTodoFromStorage";
 
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [filter, setFilter] = useState("completed");
+  const [filter, setFilter] = useState("all");
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    setTodos(getTodosFromStorage());
+  }, []);
+
   const addTodo = (text) => {
-    setTodos((prev) => [...prev, { id: uuidv4(), completed: false, text }]);
+    const newTodo = { id: uuidv4(), completed: false, text };
+    setTodos((prev) => [...prev, newTodo]);
+    addTodoToStorage(newTodo);
   };
 
   const toggleTodo = (id) => {
-    const cloned_todos = [...todos];
-
-    const itemIndex = cloned_todos.findIndex((todo) => todo.id === id);
-    const item = todos[itemIndex];
-    item.completed = !item.completed;
-    setTodos(cloned_todos);
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
   const destroyTodo = (id) => {
-    const cloned_todos = [...todos];
-
-    const itemIndex = cloned_todos.findIndex((todo) => todo.id === id);
-
-    cloned_todos.splice(itemIndex, 1);
-    setTodos(cloned_todos);
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    deleteTodoFromStorage(id);
   };
 
   const values = {
@@ -37,6 +43,7 @@ export const TodoProvider = ({ children }) => {
     filter,
     setFilter,
   };
+
   return <TodoContext.Provider value={values}>{children}</TodoContext.Provider>;
 };
 

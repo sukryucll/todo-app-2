@@ -1,11 +1,17 @@
 import React from "react";
 import { useTodo } from "../contexts/TodoContext";
+import { deleteTodoFromStorage } from "./Storage/DeleteTodoFromStorage";
 
 export default function ContentFooter() {
   const { todos, filter, setFilter, setTodos } = useTodo();
 
   const clearCompleted = () => {
-    setTodos((prev) => prev.filter((todo) => !todo.completed));
+    const completedTodos = todos.filter((todo) => todo.completed);
+    completedTodos.forEach(todo => deleteTodoFromStorage(todo.id)); 
+
+    const activeTodos = todos.filter((todo) => !todo.completed);
+    setTodos(activeTodos);
+    localStorage.setItem("todos", JSON.stringify(activeTodos));
   };
 
   return (

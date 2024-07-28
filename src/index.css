@@ -74,7 +74,7 @@ body {
 	font-size: 100px;
 	font-weight: 100;
 	text-align: center;
-	color: rgba(175, 47, 47, 0.15);
+	color: #4F8EF5;
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
@@ -232,7 +232,7 @@ body {
 }
 
 .todo-list li .destroy:hover {
-	color: #af5b5e;
+	color: #E44332;
 }
 
 .todo-list li .destroy:after {
@@ -277,6 +277,8 @@ body {
 .todo-count {
 	float: left;
 	text-align: left;
+	margin: 3px;
+	padding: 3px;
 }
 
 .todo-count strong {
@@ -284,8 +286,8 @@ body {
 }
 
 .filters {
-	margin: 0;
-	padding: 0;
+	margin: 3px;
+	padding: 3px;
 	list-style: none;
 	position: absolute;
 	right: 0;
@@ -321,10 +323,12 @@ html .clear-completed:active {
 	line-height: 20px;
 	text-decoration: none;
 	cursor: pointer;
+	margin: 3px;
+	padding: 3px;
 }
 
 .clear-completed:hover {
-	text-decoration: underline;
+	color: #E44332;
 }
 
 .info {
